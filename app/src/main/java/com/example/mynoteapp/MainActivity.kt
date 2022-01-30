@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -17,9 +18,12 @@ import com.example.mynoteapp.model.Note
 import com.example.mynoteapp.screen.NoteScreen
 import com.example.mynoteapp.screen.NoteViewModel
 import com.example.mynoteapp.ui.theme.MyNoteAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@ExperimentalComposeUiApi
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    @ExperimentalComposeUiApi
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -37,8 +41,9 @@ class MainActivity : ComponentActivity() {
 
 @ExperimentalComposeUiApi
 @Composable
-fun NotesApp(noteViewModel: NoteViewModel = viewModel()) {
-    val notesList=noteViewModel.getAllNotes()
+fun NotesApp(noteViewModel: NoteViewModel) {
+   // val notesList=noteViewModel.getAllNotes()
+    val notesList=noteViewModel.noteList.collectAsState().value
     NoteScreen(notes = notesList,
         onAddNote = {
         noteViewModel.addNote(it)

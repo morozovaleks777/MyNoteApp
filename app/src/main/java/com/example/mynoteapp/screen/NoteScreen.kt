@@ -26,6 +26,7 @@ import com.example.mynoteapp.components.NoteButton
 import com.example.mynoteapp.components.NoteInputText
 import com.example.mynoteapp.model.Note
 import com.example.mynoteapp.data.NotesDataSource
+import com.example.mynoteapp.util.formatDate
 import java.time.format.DateTimeFormatter
 
 
@@ -133,10 +134,12 @@ fun NoteRow(
                 style = MaterialTheme.typography.subtitle2
             )
             Text(text = note.description, style = MaterialTheme.typography.subtitle1)
-            Text(
-                text = note.entryDate.format(DateTimeFormatter.ofPattern("EEE d MMM")),
+
+                //text = note.entryDate.format(DateTimeFormatter.ofPattern("EEE d MMM")),
+                Text(text = formatDate(note.entryDate.time),
                 style = MaterialTheme.typography.caption
             )
+
 
 
         }
